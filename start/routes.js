@@ -16,6 +16,15 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 Route.group(() => {
-  Route.post('user/register', 'UserController.store');
-  Route.post('user/login', 'UserController.login')
-}).prefix('api/v1'); 
+  Route.post('register', 'UserController.store');
+  Route.post('login', 'UserController.login')
+}).prefix('api/v1/user'); 
+
+
+Route.group(() => { 
+  Route.get('/', 'MovieController.index').middleware(['auth']); 
+  Route.get('/:id', 'MovieController.get').middleware(['auth']); 
+  Route.put('/:id', 'MovieController.update').middleware(['auth']); 
+  Route.post('new', 'MovieController.store').middleware(['auth']); 
+
+}).prefix('api/v1/movie');
