@@ -9,6 +9,7 @@ class MovieSchema extends Schema {
       table.increments();
       table.string('name', 50).notNullable();
       table.integer('rating');
+      table.string('genere');
       table.timestamps();
     })
   }
