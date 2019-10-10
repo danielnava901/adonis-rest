@@ -14,10 +14,6 @@
 */
 
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
-<<<<<<< HEAD
-
-=======
->>>>>>> c0a3e546e68355f039304ba4307501109b620e16
 const Route = use('Route');
 
 Route.group(() => {
