@@ -4,8 +4,10 @@ const Movie = use('App/Models/Movie');
 
 class MovieController {
 
-  async index({request}) {
+  async index({request, auth}) {
     const movies = await Movie.all();
+    
+    console.log("check");
 
     return {
       code: 200,
@@ -54,6 +56,7 @@ class MovieController {
       movie
     }
   }
+
 }
 
 module.exports = MovieController
