@@ -10,5 +10,8 @@ tmp
 # The development sqlite file
 database/development.sqlite
 database/adonis.sqlite
+
 package-lock.json
 adonisworkspace.code-workspace
+
+.idea

@@ -44,7 +44,8 @@ class MovieController {
 
   async store({request}) {
     const {name, rating} = request.all();
-
+    console.log(name, rating);
+    
     const movie = new Movie();
     movie.name = name;
     movie.rating = rating;
