@@ -28,12 +28,15 @@ class UserController {
     async login({request, auth}) {
         const {email, password} = request.all();
         try {
-            let user = await auth.attempt(email, password);
+            let jwt = await auth.attempt(email, password);
+            let user = await auth.getUser();
             console.log("user", user);
             return {
                 code: 200,
+                jwt,
                 user
             };
+
         }catch(e) {
             return {
                 code: 401,
@@ -43,12 +46,34 @@ class UserController {
         
     }
 
+    async profile({request, auth}) {
+        const {user} = request.all();
+        try {
+            let jwt = await auth.attempt(email, password);
+            console.log("user refresh", jwt);
+            const refreshuser = User.find(user.id);
+
+            return {
+                code: 200,
+                jwt,
+                user: refreshuser
+            };
+
+        }catch(e) {
+            return {
+                code: 401,
+                msg: "user not found"
+            }
+        }
+    }
+
     async get({ params, request }) {
         const { id } = params;
         const user = User.find(id);
 
         return {
-
+            code: 200,
+            user
         };
 
     }

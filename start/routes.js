@@ -19,6 +19,7 @@ const Route = use('Route');
 Route.group(() => {
   Route.post('register', 'UserController.store');
   Route.post('login', 'UserController.login');
+  Route.post('profile', 'UserController.profile');
   Route.get('/:id', 'UserController.get').middleware(['auth']);
 }).prefix('api/v1/user'); 
 
