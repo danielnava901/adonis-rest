@@ -6,31 +6,32 @@ class UserController {
     async store({request}) {
         console.log("intentando registrar...");
         const {username, email, password} = request.all();
-        const user = null
+        let user = null
         try {
+            console.log("user creating: ");
             user = await User.create({
                 username,
                 email,
                 password
             });
+            console.log("user created: ", user);
             return this.login(...arguments);
         }catch(e) {
             console.log("[store error]", e);
             return {
                 code: 401,
-                msg: "user exist"
+                msg:  `${email} is occupied`
             }; 
         }
-    
-        
     }
 
     async login({request, auth}) {
         const {email, password} = request.all();
         try {
             let jwt = await auth.attempt(email, password);
+            console.log("userA", user);
             let user = await auth.getUser();
-            console.log("user", user);
+            console.log("userB", user);
             return {
                 code: 200,
                 jwt,
