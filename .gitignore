@@ -13,5 +13,7 @@ database/adonis.sqlite
 
 package-lock.json
 adonisworkspace.code-workspace
+database/adonis.sqlite
 
 .idea
+.DS_Store
