@@ -6,16 +6,20 @@ class UserController {
     async store({request}) {
         console.log("intentando registrar...");
         const {username, email, password} = request.all();
-        let user = null
+        
         try {
             console.log("user creating: ");
-            user = await User.create({
+            let user = await User.create({
                 username,
                 email,
                 password
             });
-            console.log("user created: ", user);
-            return this.login(...arguments);
+            
+            let loginReturn = await this.login(...arguments);
+            
+            return {
+                ...loginReturn            
+            };
         }catch(e) {
             console.log("[store error]", e);
             return {
@@ -27,18 +31,17 @@ class UserController {
 
     async login({request, auth}) {
         const {email, password} = request.all();
+        console.log(email, password);
         try {
             let jwt = await auth.attempt(email, password);
-            console.log("userA", user);
-            let user = await auth.getUser();
-            console.log("userB", user);
+            
             return {
                 code: 200,
-                jwt,
-                user
+                jwt
             };
 
         }catch(e) {
+            console.log("[Error] ", e);
             return {
                 code: 401,
                 msg: "user not found"
@@ -50,9 +53,8 @@ class UserController {
     async profile({request, auth}) {
         const {user} = request.all();
         try {
-            let jwt = await auth.attempt(email, password);
-            console.log("user refresh", jwt);
-            const refreshuser = User.find(user.id);
+            let jwt = await auth.attempt(email, password);            
+            const refreshuser = await auth.getUser();
 
             return {
                 code: 200,
