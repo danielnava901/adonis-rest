@@ -1,6 +1,7 @@
 'use strict'
 
 const User = use('App/Models/User');
+const Movie = use('App/Models/Movie');
 
 class UserController {
     async store({request}) {
@@ -75,10 +76,25 @@ class UserController {
         const user = User.find(id);
 
         return {
-            code: 200,
+            code: 202,
             user
         };
 
+    }
+
+    async setMovie({request, auth}) {
+        try {
+            let {movieId} = request.all();
+            let user = await auth.getUser()
+            console.log(user);
+            let movie = await Movie.find(movieId);
+            
+            return {
+                code: 201
+            }
+        }catch(e) {
+
+        }
     }
 }
 
