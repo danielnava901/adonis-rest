@@ -5,15 +5,16 @@ const Schema = use('Schema')
 
 class MovieSchema extends Schema {
   up () {
-    this.create('movies', (table) => {
-      table.increments();
-      table.string('name', 50).notNullable();
-      table.timestamps();
+    this.table('movies', (table) => {
+      // alter table
+      table.integer('mdb_id', 11);
     })
   }
 
   down () {
-    this.drop('movies');
+    this.table('movies', (table) => {
+      // reverse alternations
+    })
   }
 }
 

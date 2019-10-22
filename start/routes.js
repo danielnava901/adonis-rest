@@ -21,7 +21,8 @@ Route.group(() => {
   Route.post('login', 'UserController.login');
   Route.post('profile', 'UserController.profile').middleware(['auth']);
   Route.get('/:id', 'UserController.get').middleware(['auth']);
-  Route.post('setMovie', 'UserController.setMovie').middleware(['auth']);
+  Route.post('saveMyMovie', 'UserController.saveMyMovie').middleware(['auth']);
+  Route.post('myMovies', 'UserController.myMovies').middleware(['auth']);
 }).prefix('api/v1/user'); 
 
 Route.group(() => { 

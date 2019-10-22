@@ -82,28 +82,51 @@ class UserController {
 
     }
 
-    async setMovie({request, auth}) {
+    async saveMyMovie({request, auth}) {
         try {
             let {movieId} = request.all();
-            console.log("movieId", movieId);
             let user = await auth.getUser();
-            console.log("user", !!user);
             if(user) {
                 let movie = await Movie.find(movieId);
-                console.log("movie", movie);
                 if( movie ) {
-                    user.movies().fetch();
+                    console.log("si hay movie...", movieId);
+                    await user.movies().attach([movie.id]);
                 }
-                
             }
             
             return {
                 code: 201
             }
         }catch(e) {
-
+            console.log("[Error] ", e);
+            return {
+                code: 501
+            }
         }
     }
+
+    async myMovies({request, auth}) {
+        try {
+            let user = await auth.getUser();
+            let movies = null;
+            
+            if(user) {
+                movies = await user.movies().fetch();
+            }
+            
+            return {
+                code: 201,
+                movies
+            }
+        }catch(e) {
+            return {
+                code: 401,
+                movies
+            }
+        }
+    }
+
+
 }
 
 module.exports = UserController

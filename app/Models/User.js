@@ -36,7 +36,7 @@ class User extends Model {
   }
 
   movies() {
-    return this.hasMany('App/Models/Movie');
+    return this.belongsToMany('App/Models/Movie').pivotTable('movie_users');
   }
 }
 
