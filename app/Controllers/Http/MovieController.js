@@ -43,12 +43,13 @@ class MovieController {
   }
 
   async store({request}) {
-    const {name, rating} = request.all();
+    const {name, rating, categoryId} = request.all();
     console.log(name, rating);
     
     const movie = new Movie();
     movie.name = name;
     movie.rating = rating;
+    movie.category_id = categoryId;
 
     await movie.save();
 

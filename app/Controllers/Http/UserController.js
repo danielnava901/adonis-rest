@@ -45,7 +45,7 @@ class UserController {
             console.log("[Error] ", e);
             return {
                 code: 401,
-                msg: "user not found"
+                msg: "user not founda"
             }
         }
         
@@ -85,9 +85,17 @@ class UserController {
     async setMovie({request, auth}) {
         try {
             let {movieId} = request.all();
-            let user = await auth.getUser()
-            console.log(user);
-            let movie = await Movie.find(movieId);
+            console.log("movieId", movieId);
+            let user = await auth.getUser();
+            console.log("user", !!user);
+            if(user) {
+                let movie = await Movie.find(movieId);
+                console.log("movie", movie);
+                if( movie ) {
+                    user.movies().fetch();
+                }
+                
+            }
             
             return {
                 code: 201

@@ -10,6 +10,7 @@ class MovieSchema extends Schema {
       table.string('name', 50).notNullable();
       table.integer('rating');
       table.string('genere');
+      table.integer('user_id', 11).unsigned().references('id').inTable('users');
       table.timestamps();
     })
   }
