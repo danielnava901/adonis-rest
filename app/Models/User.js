@@ -38,6 +38,10 @@ class User extends Model {
   movies() {
     return this.belongsToMany('App/Models/Movie').pivotTable('movie_users');
   }
+
+  lists() {
+    return this.belongsToMany("App/Models/List").pivotTable('list_users');
+  }
 }
 
 module.exports = User

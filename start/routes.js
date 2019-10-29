@@ -17,12 +17,10 @@
 const Route = use('Route');
 
 Route.group(() => {
-  Route.post('register', 'UserController.store');
   Route.post('login', 'UserController.login');
+  Route.post('register', 'UserController.store');
   Route.post('profile', 'UserController.profile').middleware(['auth']);
   Route.get('/:id', 'UserController.get').middleware(['auth']);
-  Route.post('saveMyMovie', 'UserController.saveMyMovie').middleware(['auth']);
-  Route.post('myMovies', 'UserController.myMovies').middleware(['auth']);
 }).prefix('api/v1/user'); 
 
 Route.group(() => { 
@@ -31,3 +29,32 @@ Route.group(() => {
   Route.put('/:id', 'MovieController.update').middleware(['auth']); 
   Route.post('new', 'MovieController.store').middleware(['auth']); 
 }).prefix('api/v1/movie');
+
+/** ---------------------------------- */
+
+Route.group(() => {
+  Route.post('/', 'MovieUserController.index').middleware(['auth']);
+  Route.post('/add', 'MovieUserController.add').middleware(['auth']);
+}).prefix('api/v1/movieUser'); 
+
+
+/**
+ * Rutas para crear listas, actualiar o remover
+ * 
+ */
+Route.group(() => { 
+  Route.get('/',    'ListUserController.index').middleware(['auth']); 
+  Route.post('/save', 'ListUserController.save').middleware(['auth']); 
+  Route.post('/update', 'ListUserController.update').middleware(['auth']); 
+  Route.post('/remove', 'ListUserController.remove').middleware(['auth']); 
+  
+}).prefix('api/v1/list');
+
+Route.group(() => { 
+  Route.get('/',    'ListMovieController.index').middleware(['auth']); 
+  Route.post('/add', 'ListMovieController.add').middleware(['auth']); 
+  Route.post('/createAdd', 'ListMovieController.createAdd').middleware(['auth']); 
+  Route.post('/update', 'ListMoveController.update').middleware(['auth']); 
+  Route.post('/remove', 'ListMovieController.remove').middleware(['auth']); 
+  
+}).prefix('api/v1/listMovie');
